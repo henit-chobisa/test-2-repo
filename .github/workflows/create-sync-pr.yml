@@ -5,7 +5,7 @@ on:
   push: 
     branches:
       - preview
-
+      
 env:
   SOURCE_BRANCH_NAME: ${{ github.ref_name }}
 
