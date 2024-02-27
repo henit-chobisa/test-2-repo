@@ -8,14 +8,13 @@ on:
 
 env:
   SOURCE_BRANCH_NAME: ${{ github.ref_name }}
-  target_repo: ${{ secrets.TARGET_REPO }}
 
 jobs:
   sync_changes:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target_repo: ${{ env.target_repo }}
+        target_repo: ["target_repo_1", "target_repo_2"]
     permissions:
       pull-requests: write
       contents: read
