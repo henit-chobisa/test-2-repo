@@ -12,6 +12,9 @@ env:
 jobs:
   sync_changes:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target_repo: ${{ secrets.TARGET_REPO }}
     permissions:
       pull-requests: write
       contents: read
@@ -35,10 +38,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-          TARGET_REPO="${{ secrets.SYNC_TARGET_REPO_NAME }}"
-          TARGET_BRANCH="${{ secrets.SYNC_TARGET_BRANCH_NAME }}"
-          SOURCE_BRANCH="${{ env.SOURCE_BRANCH_NAME }}"
+          echo ${{ matrix.target_repo }}
 
-          git checkout $SOURCE_BRANCH
-          git remote add target-origin "https://$GH_TOKEN@github.com/$TARGET_REPO.git"
-          git push target-origin $SOURCE_BRANCH:$TARGET_BRANCH
