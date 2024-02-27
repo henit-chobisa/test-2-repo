@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target_repo: ["henit-chobisa/test-repo-1", "henit-chobisa/test-repo-2"]
+        target_repo: ["henit-chobisa/test-1-repo", "henit-chobisa/test-2-repo"]
     permissions:
       pull-requests: write
       contents: read
