@@ -3,11 +3,15 @@ name: Auto Merge or Create PR on Push
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "sync/ce"
+
+env:
+  CURRENT_BRANCH_NAME: ${{ secrets.SOURCE_BRANCH }}
+  SOURCE_BRANCH_NAME: ${{ github.ref_name }}
+  
 
 jobs:
   merge_or_create_pr:
+    if: ${{ CONTEXT.SOURCE_BRANCH_NAME }} == ${{ CONTEXT.CURRENT_BRANCH_NAME }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
