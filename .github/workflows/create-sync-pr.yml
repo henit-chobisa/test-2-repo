@@ -38,5 +38,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         run: |
-          echo ${{ matrix.target_repo }}
+          TARGET_REPO="${{ matrix.target_repo }}"
+          TARGET_BRANCH="${{ secrets.SYNC_TARGET_BRANCH_NAME }}"
+          SOURCE_BRANCH="${{ env.SOURCE_BRANCH_NAME }}"
+
+          git checkout $SOURCE_BRANCH
+          git remote add target-origin "https://$GH_TOKEN@github.com/$TARGET_REPO.git"
+          git push target-origin $SOURCE_BRANCH:$TARGET_BRANCH
+
 
