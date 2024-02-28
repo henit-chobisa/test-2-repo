@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "sync/ce"
+      - "sync/**"
 
 jobs:
-  merge_or_create_pr:
+  Auto_Merge:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -18,12 +18,12 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags
 
-      - name: Configure Git
+      - name: Setup Git
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Setup GH CLI
+      - name: Setup GH CLI and Git Config
         run: |
           type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
           curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
@@ -31,6 +31,18 @@ jobs:
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
           sudo apt update
           sudo apt install gh -y
+
+      - name: Check if current branch matches the secret
+        id: check-branch
+        env:
+          CURRENT_BRANCH: ${{ github.ref_name }}
+          SOURCE_BRANCH: ${{ secrets.SYNC_TARGET_BRANCH_NAME }}
+        run: |
+          if [ "$CURRENT_BRANCH" = "$SOURCE_BRANCH" ]; then
+            echo "MATCH=true" >> $GITHUB_ENV
+          else
+            echo "MATCH=false" >> $GITHUB_ENV
+          fi
 
       - name: Check for merge conflicts
         id: conflicts
@@ -46,21 +58,16 @@ jobs:
             echo "HAS_CONFLICTS=true" >> $GITHUB_ENV
             git merge --abort
           fi
-          
-      - name: Merge Change to Develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        if: env.HAS_CONFLICTS == 'false'
-        run: |
-            # Create a merge commit
-            git commit -m "Merge branch '${{ secrets.SYNC_TARGET_BRANCH_NAME }}' into ${{ github.event.repository.default_branch }}"
-            # Push the merge commit
-            git push origin ${{ github.event.repository.default_branch }}
 
-      - name: Create PR to Develop
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        if: env.HAS_CONFLICTS == 'true'
+      - name: Merge Change to Target Branch
+        if: env.MATCH == 'true' && env.HAS_CONFLICTS == 'false'
         run: |
-            PR_URL=$(gh pr create --base ${{ github.event.repository.default_branch }} --head ${{ secrets.SYNC_TARGET_BRANCH_NAME }} --title "sync: merge conflicts need to be resolved" --body "")
-            echo "Pull Request created: $PR_URL"
+          git commit -m "Merge branch '${{ secrets.SYNC_TARGET_BRANCH_NAME }}' into ${{ secrets.TARGET_BRANCH }}"
+          git push origin ${{ secrets.TARGET_BRANCH }}
+
+      - name: Create PR to Target Branch
+        if: env.MATCH == 'true' && env.HAS_CONFLICTS == 'true'
+        run: |
+          PR_URL=$(gh pr create --base ${{ secrets.TARGET_BRANCH }} --head ${{ secrets.SYNC_TARGET_BRANCH_NAME }} --title "sync: merge conflicts need to be resolved" --body "")
+          echo "Pull Request created: $PR_URL"
+
