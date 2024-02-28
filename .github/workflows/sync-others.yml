@@ -45,20 +45,19 @@ jobs:
           fi
 
       - name: Check for merge conflicts
-        if: env.MATCH == 'true'
-        env: 
-          SOURCE_BRANCH: ${{ secrets.SYNC_TARGET_BRANCH_NAME }} # Sync branch such as "sync/ce"
-          TARGET_BRANCH: ${{ secrets.TARGET_BRANCH }} # Base branch such as "develop"
+        id: conflicts
         run: |
           git fetch origin ${{ github.event.repository.default_branch }}
           git checkout ${{ github.event.repository.default_branch }}
-          if git merge --no-commit --no-ff ${{ secrets.SYNC_TARGET_BRANCH_NAME }}; then
+          # Attempt to merge the main branch into the current branch
+          if git merge --no-commit --no-ff sync/ce; then
             echo "No merge conflicts detected."
             echo "HAS_CONFLICTS=false" >> $GITHUB_ENV
           else
             echo "Merge conflicts detected."
             echo "HAS_CONFLICTS=true" >> $GITHUB_ENV
             git merge --abort
+          fi
 
       - name: Merge Change to Target Branch
         if: env.MATCH == 'true' && env.HAS_CONFLICTS == 'false'
