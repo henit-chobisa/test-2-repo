@@ -53,7 +53,7 @@ jobs:
           git fetch origin $TARGET_BRANCH
           git checkout $TARGET_BRANCH
           # Attempt to merge the main branch into the current branch
-          if git merge --no-commit --no-ff sync/ce; then
+          if $(git merge --no-commit --no-ff $SOURCE_BRANCH); then
             echo "No merge conflicts detected."
             echo "HAS_CONFLICTS=false" >> $GITHUB_ENV
           else
