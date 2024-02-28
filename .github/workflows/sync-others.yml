@@ -50,9 +50,9 @@ jobs:
           SOURCE_BRANCH: ${{ secrets.SYNC_TARGET_BRANCH_NAME }} # Sync branch such as "sync/ce"
           TARGET_BRANCH: ${{ secrets.TARGET_BRANCH }} # Base branch such as "develop"
         run: |
-          git fetch origin $TARGET_BRANCH
-          git checkout $TARGET_BRANCH
-          if git merge --no-commit --no-ff $SOURCE_BRANCH; then
+          git fetch origin "$TARGET_BRANCH"
+          git checkout "$TARGET_BRANCH"
+          if git merge --no-commit --no-ff "$SOURCE_BRANCH"; then
             echo "No merge conflicts detected."
             echo "HAS_CONFLICTS=false" >> $GITHUB_ENV
           else
