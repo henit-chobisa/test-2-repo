@@ -17,7 +17,7 @@ jobs:
   Check_Branch: 
     runs-on: ubuntu-latest
     outputs:
-      BRANCH_MATCH: ${{ step.check-branch.outputs.MATCH }}
+      BRANCH_MATCH: ${{ steps.check-branch.outputs.MATCH }}
     steps:
       - name: Check if current branch matches the secret
         id: check-branch
