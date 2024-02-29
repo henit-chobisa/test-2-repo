@@ -15,6 +15,7 @@ env:
 
 jobs:
   Auto_Merge:
+    if: ${{ env.CURRENT_BRANCH == env.SOURCE_BRANCH }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
