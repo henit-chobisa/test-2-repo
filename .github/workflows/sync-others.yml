@@ -45,7 +45,7 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config --global credential.helper '!echo username=x-access-token; echo password=${GITHUB_TOKEN};'
+          git config --global credential.helper '!f() { sleep 1; echo "username=git token=$GITHUB_TOKEN"; }; f'
 
       - name: Setup GH CLI and Git Config
         run: |
