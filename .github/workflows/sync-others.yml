@@ -54,7 +54,7 @@ jobs:
           
       - name: Setup Git from Github CLI
         run: |
-          gh auth login --with-token $GITHUB_TOKEN
+          gh auth login --with-token < $GITHUB_TOKEN
           gh auth setup-git
 
       - name: Check for merge conflicts
