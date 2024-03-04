@@ -12,6 +12,8 @@ env:
   TARGET_BRANCH: ${{ secrets.TARGET_BRANCH }} # The target branch that you would like to merge changes like develop
   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Personal access token required to modify contents and workflows
   REVIEWER: ${{ secrets.REVIEWER }}
+  GIT_USER: ${{ secrets.GIT_USER || 'Plane Bot' }} # Default to "Plane Bot" if no secret provided
+  GIT_EMAIL: ${{ secrets.GIT_EMAIL || 'engineering@plane.so' }} # Default
 
 jobs:
   Check_Branch: 
@@ -43,8 +45,8 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config user.name "Plane Bot"
-          git config user.email "engineering@plane.so"
+          git config user.name $GIT_USER
+          git config user.email $GIT_EMAIL
           git config --global credential.helper '!echo username=x-access-token; echo password=${GITHUB_TOKEN};'
 
       - name: Setup GH CLI and Git Config
