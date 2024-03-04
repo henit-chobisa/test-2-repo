@@ -43,10 +43,6 @@ jobs:
         with:
           fetch-depth: 0 # Fetch all history for all branches and tags
 
-      - name: Setup Git
-        run: |
-          git config --global credential.helper '!f() { sleep 1; echo "username=git token=$GITHUB_TOKEN"; }; f'
-
       - name: Setup GH CLI and Git Config
         run: |
           type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
@@ -74,6 +70,7 @@ jobs:
       - name: Merge Change to Target Branch
         if: env.HAS_CONFLICTS == 'false'
         run: |
+          git config --global credential.helper '!f() { sleep 1; echo "username=git token=$GITHUB_TOKEN"; }; f'
           git commit -m "Merge branch '$SOURCE_BRANCH' into $TARGET_BRANCH"
           git push origin $TARGET_BRANCH
 
