@@ -82,7 +82,12 @@ jobs:
       - name: Create PR to Target Branch
         if: env.HAS_CONFLICTS == 'true'
         run: |
-          # Replace 'username' with the actual GitHub username of the reviewer.
-          PR_URL=$(gh pr create --base $TARGET_BRANCH --head $SOURCE_BRANCH --title "sync: merge conflicts need to be resolved" --body "" --reviewer $REVIEWER)
+          # Use GitHub CLI to create PR and specify author and committer
+          PR_URL=$(gh pr create --base $TARGET_BRANCH --head $SOURCE_BRANCH \
+            --title "sync: merge conflicts need to be resolved" \
+            --body "" \
+            --reviewer $REVIEWER \
+            --author "${{ env.GIT_USER }} <${{ env.GIT_EMAIL }}>" \
+            --committer "${{ env.GIT_USER }} <${{ env.GIT_EMAIL }}>")
           echo "Pull Request created: $PR_URL"
 
