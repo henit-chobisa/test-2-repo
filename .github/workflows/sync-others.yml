@@ -51,6 +51,7 @@ jobs:
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
           sudo apt update
           sudo apt install gh -y
+          gh auth setup-git
 
       - name: Check for merge conflicts
         id: conflicts
@@ -70,7 +71,6 @@ jobs:
       - name: Merge Change to Target Branch
         if: env.HAS_CONFLICTS == 'false'
         run: |
-          git config --global credential.helper '!f() { sleep 1; echo "username=git token=$GITHUB_TOKEN"; }; f'
           git commit -m "Merge branch '$SOURCE_BRANCH' into $TARGET_BRANCH"
           git push origin $TARGET_BRANCH
 
