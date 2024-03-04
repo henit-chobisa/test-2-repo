@@ -1,4 +1,4 @@
-name: Auto Merge or Create PR on Push
+name: Auto Merge / Create PR on Push
 
 on:
   workflow_dispatch:
