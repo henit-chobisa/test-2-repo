@@ -86,6 +86,6 @@ jobs:
           PR_URL=$(gh pr create --base $TARGET_BRANCH --head $SOURCE_BRANCH \
             --title "sync: merge conflicts need to be resolved" \
             --body "" \
-            --reviewer $REVIEWER \
+            --reviewer $REVIEWER )
           echo "Pull Request created: $PR_URL"
 
