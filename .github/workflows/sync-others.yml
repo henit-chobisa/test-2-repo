@@ -12,8 +12,8 @@ env:
   TARGET_BRANCH: ${{ secrets.TARGET_BRANCH }} # The target branch that you would like to merge changes like develop
   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Personal access token required to modify contents and workflows
   REVIEWER: ${{ secrets.REVIEWER }}
-  GIT_USER: ${{ secrets.GIT_USER || 'Plane Bot' }}
-  GIT_EMAIL: ${{ secrets.GIT_EMAIL || 'engineering@plane.so' }}
+  GIT_USER: ${{ secrets.GIT_USER || 'Plane Bot' }} # Default to "Plane Bot" if no secret provided
+  GIT_EMAIL: ${{ secrets.GIT_EMAIL || 'engineering@plane.so' }} # Default
 
 jobs:
   Check_Branch: 
