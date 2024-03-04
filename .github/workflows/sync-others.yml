@@ -87,7 +87,5 @@ jobs:
             --title "sync: merge conflicts need to be resolved" \
             --body "" \
             --reviewer $REVIEWER \
-            --author "${{ env.GIT_USER }} <${{ env.GIT_EMAIL }}>" \
-            --committer "${{ env.GIT_USER }} <${{ env.GIT_EMAIL }}>")
           echo "Pull Request created: $PR_URL"
 
