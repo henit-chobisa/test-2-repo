@@ -86,8 +86,6 @@ jobs:
           PR_URL=$(gh pr create --base $TARGET_BRANCH --head $SOURCE_BRANCH \
             --title "sync: merge conflicts need to be resolved" \
             --body "" \
-            --reviewer $REVIEWER \
-            --author "${{ env.GIT_USER }} <${{ env.GIT_EMAIL }}>" \
-            --committer "${{ env.GIT_USER }} <${{ env.GIT_EMAIL }}>")
+            --reviewer $REVIEWER )
           echo "Pull Request created: $PR_URL"
 
