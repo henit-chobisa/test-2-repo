@@ -54,7 +54,7 @@ jobs:
           
       - name: Setup Git from Github CLI
         run: |
-          gh auth setup-git --force
+          gh auth setup-git --force --hostname
 
       - name: Check for merge conflicts
         id: conflicts
