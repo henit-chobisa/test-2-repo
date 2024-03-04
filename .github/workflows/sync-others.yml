@@ -12,8 +12,6 @@ env:
   TARGET_BRANCH: ${{ secrets.TARGET_BRANCH }} # The target branch that you would like to merge changes like develop
   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} # Personal access token required to modify contents and workflows
   REVIEWER: ${{ secrets.REVIEWER }}
-  GIT_USER: ${{ secrets.GIT_USER || 'Plane Bot' }} # Default to "Plane Bot" if no secret provided
-  GIT_EMAIL: ${{ secrets.GIT_EMAIL || 'engineering@plane.so' }} # Default
 
 jobs:
   Check_Branch: 
@@ -65,9 +63,6 @@ jobs:
 
           git config --global user.name ${USER_NAME}
           git config --global user.email ${USER_EMAIL}
-
-          echo "name=${USER_NAME}" >> "${GITHUB_OUTPUT}"
-          echo "email=${USER_EMAIL}" >> "${GITHUB_OUTPUT}"
 
       - name: Check for merge conflicts
         id: conflicts
