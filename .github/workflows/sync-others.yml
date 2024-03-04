@@ -43,8 +43,9 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config user.name "Plane Bot"
+          git config user.email "engineering@plane.so"
+          git config --global credential.helper '!echo username=x-access-token; echo password=${GITHUB_TOKEN};'
 
       - name: Setup GH CLI and Git Config
         run: |
