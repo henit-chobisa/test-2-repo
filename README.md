@@ -11,35 +11,6 @@
 
 <p align="center">
 <a href="https://discord.com/invite/A92xrEGCge">
-<img alt="Discord online members" src="https://img.shields.io/discord/1031547764020084846?color=5865F2&label=Discord&style=for-the-badge" />
-</a>
-<img alt="Commit activity per month" src="https://img.shields.io/github/commit-activity/m/makeplane/plane?style=for-the-badge" />
-</p>
-
-<p>
-    <a href="https://app.plane.so/#gh-light-mode-only" target="_blank">
-      <img
-        src="https://plane-marketing.s3.ap-south-1.amazonaws.com/plane-readme/plane_screen.webp"
-        alt="Plane Screens"
-        width="100%"
-      />
-    </a>
-    <a href="https://app.plane.so/#gh-dark-mode-only" target="_blank">
-      <img
-        src="https://plane-marketing.s3.ap-south-1.amazonaws.com/plane-readme/plane_screens_dark_mode.webp"
-        alt="Plane Screens"
-        width="100%"
-      />
-    </a>
-</p>
-
-Meet [Plane](https://plane.so). An open-source software development tool to manage issues, sprints, and product roadmaps with peace of mind 🧘‍♀️.
-
-> Plane is still in its early days, not everything will be perfect yet, and hiccups may happen. Please let us know of any suggestions, ideas, or bugs that you encounter on our [Discord](https://discord.com/invite/A92xrEGCge) or GitHub issues, and we will use your feedback to improve on our upcoming releases.
-
-The easiest way to get started with Plane is by creating a [Plane Cloud](https://app.plane.so) account. Plane Cloud offers a hosted solution for Plane. If you prefer to self-host Plane, please refer to our [deployment documentation](https://docs.plane.so/docker-compose). 
-
-## ⚡️ Contributors Quick Start
 
 ### Prerequisite
 
