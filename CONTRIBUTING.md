@@ -1,7 +1,6 @@
 # Contributing to Plane
 
-Thank you for showing an interest in contributing to Plane! All kinds of contributions are valuable to us. In this guide, we will cover how you can quickly onboard and make your first contribution.
-
+Thank you for showing an interest in contributing to Plane! All kinds of contributions are valuable to us. In this guide, we will cover how you can quickly onboard and make your first contributio
 ## Submitting an issue
 
 Before submitting a new issue, please search the [issues](https://github.com/makeplane/plane/issues) tab. Maybe an issue or discussion already exists and might inform you of workarounds. Otherwise, you can give new informplaneation.
